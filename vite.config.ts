@@ -11,7 +11,9 @@ export default defineConfig({
     include: ["workbox-window", "workbox-precaching", "workbox-core", "workbox-routing"]
   },
   plugins: [
-    remix(),
+    remix({
+      ssr: false,
+    }),
     tsconfigPaths(),
     VitePWA({
       mode: 'development',
@@ -32,12 +34,18 @@ export default defineConfig({
         }
       },
       injectManifest: {
+        globDirectory: 'build/client',
+        globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+        dontCacheBustURLsMatching: /assets\//,
         // for testing purposes only
         minify: false,
         enableWorkboxModulesLogs: true,
       },
       pwaAssets: {
         config: true,
+      },
+      integration: {
+        closeBundleOrder: 'post',
       },
       devOptions: {
         enabled: true,
