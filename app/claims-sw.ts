@@ -18,9 +18,8 @@ if (import.meta.env.DEV)
   allowlist = [/^\/$/]
 
 // to allow work offline
-const url = import.meta.env.DEV ? '/' : '/index.html'
 registerRoute(new NavigationRoute(
-  createHandlerBoundToURL(url),
+  createHandlerBoundToURL("/"),
   { allowlist },
 ))
 
